@@ -3,8 +3,30 @@ import { PageHOC, CustomInput, CustomButton } from '../components';
 import { useGlobalContext } from '../context';
 
 const Home = () => {
-  const {contract, walletAddress} = useGlobalContext()
+  const {contract, walletAddress, setShowAlert} = useGlobalContext()
   const [playerName, setPlayerName] = useState('')
+
+  const handleClick = async () => {
+    try {
+      const playerExists = await contract.isPlayer(walletAddress)
+      if(!playerExists){
+        await contract.registerPlayer(playerName, playerName)
+        setShowAlert({
+          status: true,
+          type: 'info',
+          message: `${playerName} is being registerd!`
+        })
+      }
+    } catch (error) {
+      setShowAlert({
+        status: true,
+        type: 'error',
+        message: error.message
+      })
+    }
+  }
+
+
   return (
     <div className='flex flex-col'>
       <CustomInput
@@ -16,7 +38,7 @@ const Home = () => {
 
       <CustomButton 
         title="Register"
-        handleClick={() => {}}
+        handleClick={handleClick}
         restStyles="mt-6"
       />
     </div>
