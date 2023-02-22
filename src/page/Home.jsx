@@ -16,12 +16,18 @@ const Home = () => {
           type: 'info',
           message: `${playerName} is being registerd!`
         })
+      }else{
+        setShowAlert({
+          status: true,
+          type: 'failure',
+          message: "Player exists!"
+        })
       }
     } catch (error) {
       setShowAlert({
         status: true,
-        type: 'error',
-        message: error.message
+        type: 'failure',
+        message: "Something went wrong!"
       })
     }
   }
