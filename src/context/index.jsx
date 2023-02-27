@@ -10,6 +10,7 @@ import { ethers, Signer } from "ethers";
 import Web3Model from "web3modal";
 import { useNavigate } from "react-router-dom";
 import { ABI, ADDRESS } from "../contract";
+import { createEventListners } from "./createEventListners";
 
 const GlobalContext = createContext();
 
@@ -19,14 +20,13 @@ export const GlobalContextProvider = ({ children }) => {
   const [provider, setProvider] = useState("");
   const [contract, setContract] = useState("");
   const [showAlert, setShowAlert] = useState({status: false, type: 'info', message: ''})
-  
+  const navigate = useNavigate()
 
   // Set Wallet Address to the state
   const updateCurrentWalletAddress = async () => {
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
-    console.log(accounts)
     if(accounts) setWalletAddress(accounts[0])
     
   };
@@ -35,6 +35,15 @@ export const GlobalContextProvider = ({ children }) => {
     updateCurrentWalletAddress();
 
     window.ethereum.on('accountsChanged', updateCurrentWalletAddress)
+  }, [contract]);
+
+  useEffect(() => {
+    if(contract){
+        createEventListners({
+            navigate, contract, provider, walletAddress, setShowAlert
+        })
+    }
+
   }, []);
 
   useEffect(() => {
