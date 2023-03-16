@@ -72,6 +72,18 @@ export const GlobalContextProvider = ({ children }) => {
 
     setSmartContractAndProvider();
   });
+
+
+  //* Set the game data to the state
+  useEffect(() => {
+    const fetchGameData = async () => {
+      const fetchBattles = await contract.getAllBattles();
+      console.log(fetchBattles)
+    }
+
+    if(contract) fetchGameData();
+  }, [contract])
+
   // Pass object with every single component in the application
   return (
     <GlobalContext.Provider
