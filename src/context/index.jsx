@@ -26,6 +26,8 @@ export const GlobalContextProvider = ({ children }) => {
     pendingBattles: [],
     activeBattle: null
   })
+
+  const [updateGameData, setUpdateGameData] = useState(0)
   
   const navigate = useNavigate()
 
@@ -47,7 +49,7 @@ export const GlobalContextProvider = ({ children }) => {
   useEffect(() => {
     if(contract){
         createEventListners({
-            navigate, contract, provider, walletAddress, setShowAlert
+            navigate, contract, provider, walletAddress, setShowAlert, setUpdateGameData
         })
     }
 
@@ -97,7 +99,7 @@ export const GlobalContextProvider = ({ children }) => {
     }
 
     if(contract) fetchGameData();
-  }, [contract])
+  }, [contract, updateGameData])
 
   // Pass object with every single component in the application
   return (

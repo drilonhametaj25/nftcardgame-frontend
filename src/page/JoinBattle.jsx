@@ -12,8 +12,10 @@ const JoinBattle = () => {
       setBattleName(battleName)
       try {
         await contract.joinBattle(battleName)
+
+        setShowAlert({status: true, type: 'success', message: 'Joining battle'})
       } catch (error) {
-        
+        console.log(error)
       }
     }
 
