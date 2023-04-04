@@ -8,16 +8,16 @@ import {attack, attackSound, defense, defenseSound, player01 as player01Icon, pl
 import {playAudio} from '../utils/animation.js'
 
 const Battle = () => {
-    const {constract, gameData, walletAddres, showLaert, setShowAlert } = useGlobalContext()
+    const {constract, gameData, walletAddres, showLaert, setShowAlert, battleGround } = useGlobalContext()
     const [player1, setPlayer1] = useState({})
     const [player2, setPlayer2] = useState({})
     const {battleName} = useParams()
     
     const navigate = useNavigate()
 
-    return(
-        <div>
-
+    return( 
+        <div className={`${styles.flexBetween} ${styles.gameContainer} ${battleGround}`}>
+            <h1 className="text-xl text-white"> {battleName}</h1>
         </div>
     )
 }

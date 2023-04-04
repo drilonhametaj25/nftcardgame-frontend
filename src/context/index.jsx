@@ -29,6 +29,8 @@ export const GlobalContextProvider = ({ children }) => {
 
   const [updateGameData, setUpdateGameData] = useState(0)
   
+  const [ battleGround, setBattleGround ] = useState('bg-astral')
+
   const navigate = useNavigate()
 
   // Set Wallet Address to the state
@@ -112,7 +114,9 @@ export const GlobalContextProvider = ({ children }) => {
         battleName, 
         setBattleName,
         gameData,
-        setGameData
+        setGameData,
+        battleGround,
+        setBattleGround
       }}
     >
       {children}
