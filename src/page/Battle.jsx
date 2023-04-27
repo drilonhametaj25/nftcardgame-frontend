@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import styles from '../styles'
-import {Alert} from '../components'
+import {Alert, ActionButton, Card, GameInfo, PlayerInfo} from '../components'
 import { useGlobalContext } from "../context";
 import {attack, attackSound, defense, defenseSound, player01 as player01Icon, player02 as player02Icon } from '../assets'
 import {playAudio} from '../utils/animation.js'
@@ -55,7 +55,42 @@ const Battle = () => {
         <div className={`${styles.flexBetween} ${styles.gameContainer} ${battleGround}`}>
             {showAlert?.status && <Alert type={showAlert.type} message={showAlert.message}/>}
 
-            <h1 className="text-xl text-white"> {battleName}</h1>
+            <PlayerInfo player={player2} playerIcon={player02Icon} mt/>
+        
+            <div className={`${styles.flexCenter} flex-col  my-10`}>
+                <Card
+                    card={player2}
+                    title={player2?.playerName}
+                    cardRef=''
+                    playerTwo
+                />
+
+                <div className="flex items-center flex-row">
+                    <ActionButton 
+                        imgUrl={attack}
+                        handleClick={() => {}}
+                        restStyles="mr-2 hover:border-yellow-400"
+                    />
+                    <Card
+                        card={player1}
+                        title={player1?.playerName}
+                        cardRef=''
+                        restStyles='mt-3'
+                    />
+                    <ActionButton 
+                        imgUrl={defense}
+                        handleClick={() => {}}
+                        restStyles="ml-6 hover:border-red-600"
+                    />
+                </div>
+            </div>
+            <PlayerInfo 
+                player={player1}
+                playerIcon={player01Icon}
+                mt
+            />
+
+            <GameInfo />
         </div>
     )
 }
